@@ -3,8 +3,35 @@ var form = document.getElementById('srchParams');
 form.addEventListener('submit', function(e) {
   var zip = e.target.elements.zipCode.value;
   console.log(zip);
-  // var radius = e.target.elements.radius.value;
-  // console.log(radius);
+  var tFrame = e.target.elements.timeFrame.value;
+  console.log(tFrame);
+  var mag = e.target.elements.magnitude.value;
+  console.log(mag);
+
+  if (tFrame === 'Past Hour') {
+    tFrame = 'hour';
+  } else if (tFrame === 'Past Day') {
+    tFrame = 'day';
+  } else if (tFrame === 'Past 7 Days') {
+    tFrame = 'week';
+  } else if (tFrame === 'Past 30 Days') {
+    tFrame = 'month';
+  }
+
+  if (mag === 'Significant') {
+    mag = 'significant_';
+  } else if (mag === 'M4.5+') {
+    mag = '4.5_';
+  } else if (mag === 'M2.5+') {
+    mag = '2.5_';
+  } else if (mag === 'M1.0+') {
+    mag = '1.0_';
+  } else if (mag === 'All'){
+    mag = 'all_';
+  }
+
+  console.log(tFrame);
+  console.log(mag);
 
   e.preventDefault();
 
@@ -15,11 +42,13 @@ form.addEventListener('submit', function(e) {
       console.log(lat);
       console.log(lng);
 
-  quakeData()
+  quakeData(mag, tFrame)
     .then(function(data) {
       var results = data;
 
   initMap(lat, lng, data);
+
+  initGraph(data);
 
     });
 
@@ -59,9 +88,11 @@ function initMap(lat, lng, data) {
   }
 }
 
-function quakeData() {
-  var endpoint = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson';
-  // console.log("quakes!!");
+function quakeData(mag, tFrame) {
+  // console.log(mag);
+  // console.log(tFrame);
+  var endpoint = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/' + mag + tFrame + '.geojson';
+  console.log(endpoint);
   return fetch(endpoint)
     .then(function(quakeData) {
       return quakeData.json();
@@ -85,38 +116,11 @@ function getCircle(magnitude) {
   };
 }
 
-// function eqfeed_callback(response) {
-//   map.data.addGeoJson(response);
-// }
+function initGraph(data) {
+  var actTime = new Date(data.features[0].properties.time);
+  console.log(actTime);
 
-// window.eqfeed_callback = function(results) {
-//   console.log(results);
-//   for (var i = 0; i < results.features.length; i++) {
-//     var coords = results.features[i].geometry.coordinates;
-//     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-//     var marker = new google.maps.Marker({
-//       position: latLng,
-//       map: map
-//     });
-//   }
-// };
-
-// function getMarkers(data) {
-//   console.log(data.features);
-//   for (var i = 0; i < data.features.length; i++) {
-//     var coords = data.features[i].geometry.coordinates;
-//     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-//     // console.log(coords);
-//     var marker = new google.maps.Marker({
-//       position: latLng,
-//       map: map
-//     });
-//   }
-// }
-
-// map.data.setStyle(function(feature) {
-//   var magnitude = feature.getProperty('mag');
-//   return {
-//     icon: getCircle(magnitude)
-//   };
-// });
+  for (var i = 0; i < data.features.length; i++) {
+    var seisTime = new Date(data.features[i].properties.time);
+  }
+}

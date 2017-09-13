@@ -56,15 +56,43 @@
           <h2>Delivering Data from the USGS</h2>
           <hr class="intro-divider">
             <form id="srchParams">
-              <div class="form-row">
-                <div class="form-col col-sm-3 mx-auto">
-                  <label for="zipCode">Enter Location</label>
-                  <input type="text" class="form-control" id="zipCode" aria-describedby="getZip" placeholder="city, zipcode, etc.">
-                  <small id="getZip" class="form-text text-muted"></small>
+              <div class="form-group">
+                <div class="form-row">
 
-                  <!-- <label for="searchRadius">Search Radius</label>
-                  <input type="text" class="form-control" id="radius" placeholder="Search Radius"> -->
+                  <div class="col-sm-3 mx-auto">
+                      <div class="form-group">
+                        <label for="zipCode">Enter Location</label>
+                        <input type="text" class="form-control" id="zipCode" aria-describedby="getZip" placeholder="city, zipcode, etc.">
+                        <small id="getZip" class="form-text text-muted"></small>
+                      </div>
+                  </div>
 
+                  <div class="col-sm-3 mx-auto">
+                    <div class="form-group">
+                      <label for="timeFrame">Time Frame</label>
+                      <select class="form-control" id="timeFrame">
+                        <option>Past Hour</option>
+                        <option>Past Day</option>
+                        <option>Past 7 Days</option>
+                        <option>Past 30 Days</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3 mx-auto">
+                    <div class="form-group">
+                      <label for="magnitude">Magnitude</label>
+                      <select class="form-control" id="magnitude">
+                        <option>Significant</option>
+                        <option>M4.5+</option>
+                        <option>M2.5+</option>
+                        <option>M1.0+</option>
+                        <option>All</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 mx-auto">
                   <button type="submit" class="btn btn-light">Submit</button>
                 </div>
               </div>
