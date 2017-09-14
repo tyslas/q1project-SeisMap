@@ -105,7 +105,7 @@
     <section class="content-section-a">
 
       <div class="container">
-        <h1 class="h1-sectionA">Map Results</h1>
+        <h1 class="h1-sectionA">Visualizations</h1>
         <div class="row">
           <div class="col-lg-5 mc-auto">
             <hr class="section-heading-spacer">
@@ -134,12 +134,16 @@
           <div class="col-lg-5 mr-auto order-lg-2">
             <hr class="section-heading-spacer">
             <div class="clearfix"></div>
-            <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-            <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by
-              <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+            <h2 class="section-heading">Seismic Timeline:</h2>
+            <p class="lead">I used a great
+              <a target="_blank" href="https://www.rtfmanual.io/d3garden/">D3.js tutorial</a> to learn the basics for building the visualization below! Follow the link to try out some digital gardening to learn how to build your own bar graph</p>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-lg-5 ml-auto order-lg-1">
-            <img class="img-fluid" src="img/seismicWaves.jpg" alt="">
+            <div id="timeline"></div>
+            <!-- <img class="img-fluid" src="img/seismicWaves.jpg" alt=""> -->
           </div>
         </div>
 
@@ -238,6 +242,8 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyZ-lggNyx0aARoi40_PxgERaX84KslMg">
     </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
     <script src="gMaps.js"></script>
 
   </body>

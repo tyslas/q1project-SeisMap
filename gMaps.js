@@ -117,10 +117,34 @@ function getCircle(magnitude) {
 }
 
 function initGraph(data) {
+  var w = 600;
+  var h = 300;
+  var svg = d3.select('#timeline')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+      // .attr('background-color', 'grey');
+
+  svg.selectAll('rect.colorBar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('width', 20)
+      .attr('height', function(d, i) {
+        return d.features[i].properties.mag;
+      })
+      .attr('x', function() {
+        return i * 22;
+      })
+      .attr('y', function(d, i) {
+        return h - d.features[i].properties.mag;
+      })
+      .attr('fill', 'black');
+
   var actTime = new Date(data.features[0].properties.time);
   console.log(actTime);
 
-  for (var i = 0; i < data.features.length; i++) {
-    var seisTime = new Date(data.features[i].properties.time);
-  }
+  // for (var i = 0; i < data.features.length; i++) {
+  //   var seisTime = new Date(data.features[i].properties.time);
+  // }
 }
