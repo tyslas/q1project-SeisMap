@@ -116,7 +116,7 @@ function initMap(lat, lng, data) {
 function quakeData(mag, tFrame) {
   // console.log(mag);
   // console.log(tFrame);
-  var endpoint = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/' + mag + tFrame + '.geojson';
+  var endpoint = 'https://galvanize-cors-proxy.herokuapp.com/http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/' + mag + tFrame + '.geojson';
   console.log(endpoint);
   return fetch(endpoint)
     .then(function(quakeData) {
@@ -141,74 +141,74 @@ function getCircle(magnitude) {
   };
 }
 
-function initGraph(data) {
-  var w = 600;
-  var h = 300;
-  console.log(data);
-  d3.select('#timeline')
-      .append('svg')
-      .attr('width', w)
-      .attr('height', h)
-      // .attr('background-color', 'grey');
-
-      .selectAll('rect.bar')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('width', 20)
-      .attr('height', 100)
-      .attr('x', 10)
-      .attr('y', 20)
-      .attr('fill', 'black');
-
-  var actTime = new Date(data.features[0].properties.time);
-  console.log(actTime);
-
-  // for (var i = 0; i < data.features.length; i++) {
-  //   var seisTime = new Date(data.features[i].properties.time);
-  // }
-}
+// function initGraph(data) {
+//   var w = 600;
+//   var h = 300;
+//   console.log(data);
+//   d3.select('#timeline')
+//       .append('svg')
+//       .attr('width', w)
+//       .attr('height', h)
+//       // .attr('background-color', 'grey');
+//
+//       .selectAll('rect.bar')
+//       .data(data)
+//       .enter()
+//       .append('rect')
+//       .attr('width', 20)
+//       .attr('height', 100)
+//       .attr('x', 10)
+//       .attr('y', 20)
+//       .attr('fill', 'black');
+//
+//   var actTime = new Date(data.features[0].properties.time);
+//   console.log(actTime);
+//
+//   // for (var i = 0; i < data.features.length; i++) {
+//   //   var seisTime = new Date(data.features[i].properties.time);
+//   // }
+// }
 
 function drawBasic() {
-    var data = new google.visualization.DataTable();
-    data.addColumn('date', 'Time of Event');
-    data.addColumn('number', 'Magnitude of Event');
+  var data = new google.visualization.DataTable();
+  data.addColumn('date', 'Time of Event');
+  data.addColumn('number', 'Magnitude of Event');
 
-    console.log(timeArr[0]);
+  console.log(timeArr[0]);
 
 
-    // write a for loop that loops through your array
-    // and data.addRows(for that data)
-    // then fix min/max range
-    for (var i = 0; i < magArr.length; i++) {
-      // console.log(magArr[i]);
-      // console.log(timeArr[i]);
-      var currDate = new Date(timeArr[i]);
-      data.addRows([
-              [new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate()), magArr[i]],
-      ])
-    }
-    console.log(data.toJSON());
+  // write a for loop that loops through your array
+  // and data.addRows(for that data)
+  // then fix min/max range
+  for (var i = 0; i < magArr.length; i++) {
+    // console.log(magArr[i]);
+    // console.log(timeArr[i]);
+    var currDate = new Date(timeArr[i]);
+    data.addRows([
+            [new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate()), magArr[i]],
+    ])
+  }
+  console.log(data.toJSON());
 
-    var options = {
-      chart: {
-        title: 'Seismic Events'
-      },
-      hAxis: {
-        title: 'Time of Event',
-        days: {format: ['MMM dd']},
-        viewWindow: {
-          min: new Date(2017, 08, 14, 0),
-          max: new Date(2017, 09, 16, 0)
-        }
-      },
-      vAxis: {
-        title: 'Magnitude'
+  var options = {
+    chart: {
+      title: 'Seismic Events'
+    },
+    hAxis: {
+      title: 'Time of Event',
+      days: {format: ['MMM dd']},
+      viewWindow: {
+        min: new Date(2017, 08, 14, 0),
+        max: new Date(2017, 09, 16, 0)
       }
-    };
+    },
+    vAxis: {
+      title: 'Magnitude'
+    }
+  };
 
-    var chart = new google.charts.Bar(
-      document.getElementById('chart_div'));
+  var chart = new google.charts.Bar(
+    document.getElementById('chart_div'));
 
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+  chart.draw(data, google.charts.Bar.convertOptions(options));
 }
